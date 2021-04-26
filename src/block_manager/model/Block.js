@@ -16,6 +16,7 @@ export default Backbone.Model.extend({
     media: '',
     content: '',
     category: '',
-    attributes: {}
+    attributes: {},
+    imageUrl: ''
   }
 });

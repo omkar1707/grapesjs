@@ -8,7 +8,8 @@ export default Backbone.View.extend({
     mousedown: 'startDrag',
     dragstart: 'handleDragStart',
     drag: 'handleDrag',
-    dragend: 'handleDragEnd'
+    dragend: 'handleDragEnd',
+    mouseover: 'hover'
   },
 
   initialize(o, config = {}) {
@@ -20,6 +21,8 @@ export default Backbone.View.extend({
     this.listenTo(model, 'destroy remove', this.remove);
     this.listenTo(model, 'change', this.render);
   },
+
+  hover() {},
 
   handleClick() {
     const { config, model, em } = this;
@@ -144,6 +147,7 @@ export default Backbone.View.extend({
     const attr = model.get('attributes') || {};
     const cls = attr.class || '';
     const className = `${ppfx}block`;
+    const image = model.get('imageUrl');
     const label =
       (em && em.t(`blockManager.labels.${model.id}`)) || model.get('label');
     const render = model.get('render');
@@ -152,9 +156,9 @@ export default Backbone.View.extend({
     $el.attr(attr);
     el.className = `${cls} ${className} ${ppfx}one-bg ${clsAdd}`.trim();
     el.innerHTML = `
-      ${media ? `<div class="${className}__media">${media}</div>` : ''}
-      <div class="${className}-label">${label}</div>
-    `;
+        ${media ? `<div class="${className}__media">${media}</div>` : ''}
+        <div class="${className}-label">${label}</div>
+        ${image ? `<img src="${image}">` : ''}`;
     el.title = el.textContent.trim();
     el.setAttribute('draggable', hasDnd(em) && !disable ? true : false);
     const result = render && render({ el, model, className, prefix: ppfx });
