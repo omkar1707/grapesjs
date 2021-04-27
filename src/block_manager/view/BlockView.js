@@ -158,7 +158,7 @@ export default Backbone.View.extend({
     el.innerHTML = `
         ${media ? `<div class="${className}__media">${media}</div>` : ''}
         <div class="${className}-label">${label}</div>
-        ${image ? `<img src="${image}">` : ''}`;
+        ${image ? `<img height="50px" src="${image}">` : ''}`;
     el.title = el.textContent.trim();
     el.setAttribute('draggable', hasDnd(em) && !disable ? true : false);
     const result = render && render({ el, model, className, prefix: ppfx });
